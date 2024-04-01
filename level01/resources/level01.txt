@@ -1,0 +1,21 @@
+cat /etc/passwd
+I found that I have read permission, and there is password hash for user flag01
+
+4hDRfypTqqnw
+
+after cracking this password using john tool
+
+echo 4hDRfypTqqnw > hash.txt
+john hash.txt
+
+john --show hash.txt
+?:abcdefg
+
+
+found that the weak password of level01 is abcdefg which is very easy to crack it's was hashed using DES 128/128 hash
+then 
+su flag01
+abcdefg
+then 
+getflag
+XXXXXXXXXXXXXXXXXXXXXXXX

@@ -1,0 +1,20 @@
+scp -P port username@remote_host:/path/to/level02.pcap .
+
+since it is a pcap file
+we found that this file is a binary file format used to store network packet data captured during network traffic analysis.
+It contains the raw data packets captured from a network interface or a network segment.
+
+we took that file on wireshark to analyze the data in it
+
+before cleaning string
+ft_wandr...NDRel.L0L.
+
+hexadump
+66 74 5f 77 61 6e 64 72 7f 7f 7f 4e 44 52 65 6c 7f 4c 30 4c 0d
+f  t  _  w  a  n  d  r  dl dl dl N  D  R  e  l  dl L  0  L  \r
+
+ft_waNDReL0L
+and with that password we entered flag02 user
+
+then getflag:
+XXXXXXXXXXXXXXXXXXXXXXXX

@@ -1,0 +1,37 @@
+int __cdecl main(int argc, const char **argv, const char **envp)
+{
+  const char **v3; // edi
+  char *v4; // esi
+  char *v5; // ebx
+  __uid_t v7; // [esp-Ch] [ebp-4Ch]
+  __gid_t v8; // [esp+0h] [ebp-40h]
+  char **v9; // [esp+4h] [ebp-3Ch]
+  char *v10[11]; // [esp+14h] [ebp-2Ch] BYREF
+
+  v10[7] = (char *)&argc;
+  v3 = argv;
+  v9 = (char **)envp;
+  v4 = strdup(&s);
+  v5 = strdup(&s);
+  if ( v3[1] )
+  {
+    free(v4);
+    v4 = strdup(v3[1]);
+    if ( v3[2] )
+    {
+      free(v5);
+      v5 = strdup(v3[2]);
+    }
+  }
+  v8 = getegid();
+  v7 = geteuid();
+  setresgid(v8, v8, v8);
+  setresuid(v7, v7, v7);
+  v10[2] = v4;
+  v10[3] = v5;
+  v10[0] = "/usr/bin/php";
+  v10[1] = "/home/user/level06/level06.php";
+  v10[4] = 0;
+  execve("/usr/bin/php", v10, v9);
+  return 0;
+}

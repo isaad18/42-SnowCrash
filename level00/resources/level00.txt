@@ -1,0 +1,29 @@
+First flag
+ls -lR 2> /dev/null | grep -C 30 flag00
+This will ls all the machine files redirect error to the standard error, then grep flag , 
+found the following file
+
+----r--r--  1 flag00  flag00      15 Mar  5  2016 john
+
+then by using whereis were able to locate the flag 
+level00@SnowCrash:/$ whereis john
+john: /usr/sbin/john
+
+
+level00@SnowCrash:/usr/sbin$ cat john
+cdiiddwpgswtgt
+
+by first look this is a weak hash or encryption,  using this website https://ciphertools.co.uk/ we were able to decrypt it identifying it as ceaser cipher, here is the decrypted output:
+nottoohard
+
+then change user to flag00, 
+su flag00
+password: nottoohard
+ getflag
+Check flag.Here is your token : XXXXXXXXXXXXXXXXXXXXXXXX
+
+then su level01 
+token:XXXXXXXXXXXXXXXXXXXXXXXX  
+
+
+and thats it for level00

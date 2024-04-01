@@ -1,0 +1,18 @@
+int main()
+{
+    unsigned int v0;  // [bp-0x1c]
+    void* v1;  // [bp-0x10]
+    unsigned int v2;  // [bp-0xc]
+    unsigned int v3;  // [bp-0x8]
+
+    v2 = getegid();
+    v3 = geteuid();
+    v0 = v2;
+    setresgid(v2, v2);
+    v0 = v3;
+    setresuid(v3, v3);
+    v1 = 0;
+    v0 = getenv("LOGNAME");
+    asprintf(&v1, "/bin/echo %s ");
+    return system(v1);
+}

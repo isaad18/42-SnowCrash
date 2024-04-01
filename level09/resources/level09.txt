@@ -1,0 +1,51 @@
+here I can see two files, level09 executable and the token
+the token is readable this time but it is kindof encoded
+I tried to run the executable, and passed aarguments
+I found out it does a rotation and prints back the rotated string
+
+
+level09@SnowCrash:~$ ls
+level09  token
+level09@SnowCrash:~$ cat token
+f4kmm6p|=�p�n��DB�Du{��
+level09@SnowCrash:~$ ls -la
+total 24
+dr-x------ 1 level09 level09  140 Mar  5  2016 .
+d--x--x--x 1 root    users    340 Aug 30  2015 ..
+-r-x------ 1 level09 level09  220 Apr  3  2012 .bash_logout
+-r-x------ 1 level09 level09 3518 Aug 30  2015 .bashrc
+-rwsr-sr-x 1 flag09  level09 7640 Mar  5  2016 level09
+-r-x------ 1 level09 level09  675 Apr  3  2012 .profile
+----r--r-- 1 flag09  level09   26 Mar  5  2016 token
+level09@SnowCrash:~$ ./level09 
+You need to provied only one arg.
+level09@SnowCrash:~$ ./level09 l
+l
+level09@SnowCrash:~$ ./level09 lkk
+llm
+level09@SnowCrash:~$ ./level09 lkkdwwwwq
+llmg{|}~y
+level09@SnowCrash:~$ ./level09 aa
+ab
+level09@SnowCrash:~$ ./level09 aaaaaa
+abcdef
+level09@SnowCrash:~$ ./level09 aaaaaaaaaaaaa
+abcdefghijklm
+
+
+from here I noticed that it is doing the rotation based on the index
+so I assumed the file token was encoded using this executable
+so I made a program to decode it
+
+➜  resources ls
+decode.cpp  level09.txt  token
+➜  resources c++ decode.cpp 
+➜  resources ./a.out 
+f3iji1ju5yuevaus41q1afiuq
+
+then i went back to the machine
+level09@SnowCrash:~$ su flag09
+Password: 
+Don't forget to launch getflag !
+flag09@SnowCrash:~$ getflag
+Check flag.Here is your token : XXXXXXXXXXXXXXXXXXXXXXXX

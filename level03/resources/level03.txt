@@ -1,0 +1,18 @@
+level03 executable
+
+by analyzing the strings in level03 execultable
+using the command (strings level03)
+
+we found that the execultable is using this command
+/usr/bin/env echo Exploit me
+
+found that the line above is being executed with excalated privileges
+
+so I thought about a trickto make it execute getflag instead of echo
+so I created new dir inside tmp called it antother_bin, then created a file called echo that executed getflag, 
+then updated the path to include the another_bin first, so that when echo is called, the first place it will search in is the another_bin, and it will execute the spoofed echo
+
+export PATH=/tmp/another:$PATH
+
+./level03 getflag
+Check flag.Here is your token : XXXXXXXXXXXXXXXXXXXXXXXX

